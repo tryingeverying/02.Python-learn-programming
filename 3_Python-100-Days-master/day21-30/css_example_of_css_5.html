@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>CSS - 动画效果</title>
+        <style>
+            #one, #two, #three {
+                position: fixed;
+                width: 200px;
+                height: 200px;
+                top: 100px;
+            }
+            #one {
+                background-color: purple;
+                left: 100px;
+                animation: foo 10s;
+                
+            }
+            #two {
+                background-color: gold;
+                left: 400px;
+                animation: foo 2s infinite;
+                /* animation： 定义的动画名 持续时间 运动方式 延迟时间 次数*/
+                /* infinite 是无限次 */
+            }
+            #three {
+                background-color: darkgreen;
+                left: 700px;
+                animation: foo 0.5s infinite;
+            }
+            /* @keyframes定义的动画名称用来被foo所使用。
+            定义动画时，简单的动画可以直接使用关键字from和to，
+            即从一种状态过渡到另一种状态： */
+            @keyframes foo {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="one"></div>
+        <div id="two"></div>
+        <div id="three"></div>
+    </body>
+
+</html>
