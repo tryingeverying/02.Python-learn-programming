@@ -10,7 +10,7 @@ class Ship():
         self.ai_settings = ai_settings
 
         # 加载飞船图像并获取其外接矩阵
-        self.image = pygame.image.load(r'02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\12_armed_airship\images\ship.bmp')
+        self.image = pygame.image.load(r'02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\ship.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 

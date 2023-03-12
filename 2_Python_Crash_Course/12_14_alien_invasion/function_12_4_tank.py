@@ -8,7 +8,7 @@ class Tank():
         self.screen = screen
 
         #外接矩形
-        self.image = pygame.image.load(r"02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\12_armed_airship\images\tank.bmp")
+        self.image = pygame.image.load(r"02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\tank.bmp")
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 

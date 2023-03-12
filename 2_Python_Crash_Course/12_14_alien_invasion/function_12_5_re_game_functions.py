@@ -11,8 +11,10 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
     elif event.key == pygame.K_LEFT:
     # 向右移动飞船
         ship.moving_left = True 
-    elif event.key == pygame.K_SPACE
+    elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings,screen,ship,bullets)
+    elif event.key == pygame.K_q:
+        sys.exit()
 
 def fire_bullet(ai_settings,screen,ship,bullets):
     """如果还没有达到限制就发射一颗子弹"""

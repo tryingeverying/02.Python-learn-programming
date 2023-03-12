@@ -9,16 +9,16 @@ class Rocket():
         self.ai_settings = ai_settings
 
         # 加载飞船图像并获取其外接矩阵
-        self.image = pygame.image.load(r'02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\12_armed_airship\images\rocket_slide.bmp')
+        self.image = pygame.image.load(r'02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\rocket.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
         # 将每艘新飞船放在屏幕底部中央
-        self.rect.x = self.screen_rect.x
+        self.rect.centerx = self.screen_rect.centerx
         self.rect.centery = self.screen_rect.centery
 
         # 在飞船的属性center中存储小数值
-        self.x = float(self.rect.x)
+        self.centerx = float(self.rect.centerx)
         self.centery = float(self.rect.centery)
 
         # 移动标志
@@ -31,10 +31,10 @@ class Rocket():
         """根据移动标志调整火箭的位置"""
         # 更新飞船的center值，而非rect
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.ai_settings.rocket_speed_factor
+            self.centerx += self.ai_settings.rocket_speed_factor
         
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.ai_settings.rocket_speed_factor
+            self.centerx -= self.ai_settings.rocket_speed_factor
         
         if self.moving_up and self.rect.top > 0:
             self.centery -= self.ai_settings.rocket_speed_factor
@@ -44,7 +44,7 @@ class Rocket():
         
         
         # 根据self.center更新rect对象
-        self.rect.x = self.x
+        self.rect.centerx = self.centerx
         self.rect.centery = self.centery
 
     def blitme(self):
