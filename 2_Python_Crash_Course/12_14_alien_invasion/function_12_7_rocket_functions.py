@@ -1,8 +1,6 @@
 import sys
 import pygame
 
-
-
 def check_keydown_events(event,rocket):
     """响应键被按下的情况"""
     if event.key == pygame.K_RIGHT:

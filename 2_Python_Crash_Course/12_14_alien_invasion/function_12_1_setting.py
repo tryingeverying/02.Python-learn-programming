@@ -12,7 +12,7 @@ class Settings():
 
         # 子弹设置
         self.bullet_speed_factor = 1
-        self.bullet_width = 3
+        self.bullet_width = 1000
         self.bullet_height = 15
         self.bullet_color = 60,60,60
         self.bullets_allowed = 3
@@ -25,7 +25,10 @@ class Settings():
 
         # 雨滴的设置
         self.rain_speed_factor = 1
-
+        
+        # 金蟾和铜钱的设置
+        self.toad_speed_factor = 1.5
+        self.copper_drop_speed = 0.6
 
 
 

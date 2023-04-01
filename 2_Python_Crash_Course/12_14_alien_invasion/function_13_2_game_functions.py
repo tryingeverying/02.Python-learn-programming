@@ -63,15 +63,32 @@ def update_screen(ai_setting,screen,ship,bullets,aliens):
     # 让最近绘制的屏幕可见
     pygame.display.flip()
 
-def update_bullets(bullets):
+def update_bullets(ai_settings,screen,ship,aliens,bullets):
     """更新子弹的位置，并删除已经消失的子弹"""
     # 子弹移动
     bullets.update()
-
-    # 删除已经消失的子弹
-    for bullet in bullets.copy():
-        if bullet.rect.bottom <= 0:
-            bullets.remove(bullet)
+    # 检测是否有子弹击中了外星人
+    # 如果又被击中的就删除相应的子弹和外星人
+    # 两个实参 True 告诉Pygame删除发生碰撞的子弹和外星人。
+    collisions = pygame.sprite.groupcollide(bullets, aliens, True, True)
+    # 要模拟能够穿行到屏幕顶端的高能子弹——消灭它击中的每个外星人，
+    # 可将第一个布尔实参设置为False ，并让第二个布尔实参为True 。
+    # 这样被击中的外星人将消失，但所有的子弹都始终有效，直到抵达屏幕顶端后消失。
+    if len(aliens) == 0:
+        bullets.empty()
+        # 上面调用了pygame.sprite.groupcollide方法，
+        # 也就意味着碰撞判定为true的子弹和外星人会被删除，
+        # 此时如果aliens的编组的字节为空也就意味着外星人的编组已经清空了，
+        # 对应的子弹的编组也要清空，以便重新按下space时出现的子弹是新的。
+        # 但是即便是没有也不会有太大的影响
+        create_fleet(ai_settings, screen, ship, aliens)
+    # # 删除已经消失的子弹
+    # for bullet in bullets.copy():
+    #     if bullet.rect.bottom <= 0:
+    #         bullets.remove(bullet)
+    # 如果上面的pygame.sprite.groupcollide的bulle赋值为False，
+    # 即bullet在与alien的碰撞后不消失则需要调用上面的代码删除已经消失在屏幕上的bullet。
+    # 从而使得屏幕的子弹可以重新出现
     
 def get_number_aliens_x(ai_settings,alien_width):
     """计算屏幕的可用空间能够容纳多少个外星人"""

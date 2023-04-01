@@ -3,7 +3,7 @@ import pygame
 from pygame.sprite import Group
 from function_12_1_setting import Settings
 from function_12_2_ship import Ship
-import function_13_2_game_functions as gf
+import function_13_7_re_game_functions as gf
 
 
 def run_game():
@@ -23,19 +23,19 @@ def run_game():
 
     # 创建外星人群
     gf.create_fleet(ai_settings, screen, ship, aliens)
-
+ 
     #开始游戏主循环
     while True:
         # 监视鼠标和键盘的命令
         gf.check_events(ai_settings,screen,ship,bullets) 
-
         # 飞船移动
         ship.update()
         #控制子弹
-        gf.update_bullets(bullets)
+        gf.update_bullets(ai_settings,screen,ship,aliens,bullets)
         gf.update_aliens(ai_settings,aliens)
         # 更新屏幕图像  
         gf.update_screen(ai_settings,screen,ship,bullets,aliens)
+        
 
 run_game()
 

@@ -51,7 +51,7 @@ def rain_drop():
         return number_rain_line
     # 计算屏幕上可以放置多少行的雨滴
     def get_number_rain_row(rain_setting,rain):
-        available_space_row = rain_setting.screen_height - 10 * rain.rect.height
+        available_space_row = rain_setting.screen_height - 15 * rain.rect.height
         number_rain_row = int(available_space_row /(2 * rain.rect.height))
         return number_rain_row
     # 创建单个雨滴
@@ -83,7 +83,14 @@ def rain_drop():
     def update_rain(rains):
         for rain in rains.sprites():
             if rain.check_edge():
-                rain.rect.y = rain.rect.height
+                # 让触底的雨滴重新出现在屏幕的最上方的关键就在于把这个触底的雨滴给移除编组，
+                # 因为哪个触底的雨滴已经被写出到了编组里，应该已经无法被修改，
+                # 因此上面出现的雨滴需要是新的雨滴对象
+                new_rain = RainDrop(rain_setting,screen)
+                new_rain.rect.x = rain.rect.x
+                new_rain.rect.y = rain.rect.height
+                rains.remove(rain)
+                rains.add(new_rain)
         rains.update()
     
     # 创建一个雨滴的编组
@@ -94,7 +101,8 @@ def rain_drop():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
-            elif event.key == pygame.K_q:
+            key_pressed = pygame.key.get_pressed()
+            if key_pressed[pygame.K_q]:
                 sys.exit()
         update_rain(rains)
         update_screen(rain_setting,screen)
