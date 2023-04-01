@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.ai_settings = ai_settings
 
         # 加载外星人的图片，并且获取其外接矩形
-        self.image = pygame.image.load(r"02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\alien.bmp")
+        self.image = pygame.image.load(r"2_Python_Crash_Course\12_14_alien_invasion\images\alien.bmp")
         self.rect = self.image.get_rect()
 
         # 每个外星人最初都在屏幕的左上角附近

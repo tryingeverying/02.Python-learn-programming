@@ -10,7 +10,7 @@ class Star(Sprite):
         self.screen = screen
         self.star_setting = star_setting
         # 导入图片并且获取图片的外接矩形
-        self.image = pygame.image.load(r"02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\star.bmp")
+        self.image = pygame.image.load(r"2_Python_Crash_Course\12_14_alien_invasion\images\star.bmp")
         self.rect = self.image.get_rect()
         # 将图片的初始位置放置在屏幕上
         self.rect.x = self.rect.width

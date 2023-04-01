@@ -12,7 +12,7 @@ class RainDrop(Sprite):
         self.screen = screen
         self.rain_setting = rain_setting
         # 导入图片，并且通过get_rect方法获取其外接矩形
-        self.image = pygame.image.load(r"02.Python-learn-programming\2_Python_Crash_Course\12_14_alien_invasion\images\raindrop.bmp")
+        self.image = pygame.image.load(r"2_Python_Crash_Course\12_14_alien_invasion\images\raindrop.bmp")
         self.rect = self.image.get_rect()
         # 图片出现的初始位置
         self.rect.x = self.rect.width
