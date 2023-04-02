@@ -7,7 +7,12 @@ class Settings():
         self.screen_width = 1200
         self.screen_height = 800
         self.bg_color = (199,237,204)
+
+        # 飞船的设置
         self.ship_speed_factor = 1.5
+        self.ship_limit = 1
+        
+        # 火箭的设置
         self.rocket_speed_factor = 2.5
 
         # 子弹设置
@@ -29,6 +34,7 @@ class Settings():
         # 金蟾和铜钱的设置
         self.toad_speed_factor = 1.5
         self.copper_drop_speed = 0.6
+        self.error_times = 2
 
 
 

@@ -47,7 +47,7 @@ def create_copper(cc_settings,coppers, screen):
     # 把生成的铜钱加入到编组中
     coppers.add(copper)
 
-def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen):
+def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen, stats):
     """检测铜钱和金蟾的撞击情况"""
     collisions = pygame.sprite.groupcollide(goldtoads, coppers, False, True)
     
@@ -57,6 +57,8 @@ def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen):
     for copper in coppers.copy():
         if copper.check_bottom():
             coppers.remove(copper)
+            coppers_hit_bottom(stats)
+            break
             # create_copper(coppers, screen)
             # print(len(coppers))
             # 如果触底判断为true，则把这个铜钱的对象移除编组，
@@ -65,6 +67,17 @@ def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen):
             # 而取消下面两行的注视就可以发现如果不移除copper，
             # coppers编组的长度会不断累加，所以不能在for循环中创建铜钱对象，
             # 否则会出现很多个铜钱
+
+def coppers_hit_bottom(stats, ):
+    # 铜钱达到屏幕的底部的处理反应
+    if stats.chances > 0:
+        stats.chances -= 1
+
+        print(stats.chances)
+        # 暂时先不初始化游戏
+    else:
+        stats.game_active = False
+
 
 def update_screen(screen,cc_settings,goldtoads,coppers):
     """刷新屏幕"""
@@ -75,7 +88,7 @@ def update_screen(screen,cc_settings,goldtoads,coppers):
     # 把参数绘制到屏幕上
     pygame.display.flip()
 
-def update_location(cc_settings,goldtoads,coppers,screen):
+def update_location(cc_settings,goldtoads,coppers,screen,stats):
     coppers.update()
     for goldtoad in goldtoads:
         check_event(goldtoad)
@@ -86,4 +99,4 @@ def update_location(cc_settings,goldtoads,coppers,screen):
         # 因此之前的代码无法实现通过键盘操作goldtoad的移动，
         # 为了实现移动功能只能在goldtoads编组中取出单独的goldtoad对象，
         # 使之调用check_event从而实现对goldtoad的操控
-    check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen)
+    check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen, stats)

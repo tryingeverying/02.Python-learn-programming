@@ -1,7 +1,9 @@
 import sys
 import pygame
+from time import sleep
 from function_12_8_bullet import Bullet
 from function_13_1_alien import Alien
+
 
 """重构game_function函数 使其模块化"""
 
@@ -27,7 +29,7 @@ def check_keydown_events(event,ai_settings,screen,ship,bullets):
         ship.moving_left = True 
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings,screen,ship,bullets)
-    elif event.key == pygame.K_q:
+    elif event.key == pygame.K_ESCAPE:
         sys.exit()
 
 def fire_bullet(ai_settings,screen,ship,bullets):
@@ -130,11 +132,45 @@ def change_fleet_direction(ai_settings,aliens):
         alien.rect.y += ai_settings.fleet_drop_speed
     ai_settings.fleet_direction *= -1
 
-def update_aliens(ai_settings,aliens):
+def update_aliens(ai_settings,stats,screen,ship,aliens,bullets,):
     """更新外星人群中所有外星人的位置"""
     check_fleet_edge(ai_settings, aliens)
     aliens.update()    
 
+    # 检测外星人和飞船的碰撞
+    if pygame.sprite.spritecollideany(ship,aliens):
+        ship_hit(ai_settings,stats, screen, ship, aliens, bullets)
+        print("飞船被击落了 !")
+    # 监控外星人是否达到屏幕底部
+    check_aliens_bottom(ai_settings,stats, screen, ship, aliens, bullets)
+
+def check_aliens_bottom(ai_settings,stats, screen, ship, aliens, bullets):
+    """检查是否有外星人达到屏幕底部"""
+    screen_rect = screen.get_rect()
+    for alien in aliens:
+        if alien.rect.bottom >= screen_rect.bottom:
+            # 外星人达到屏幕底部，当作飞船被击中处理
+            ship_hit(ai_settings,stats, screen, ship, aliens, bullets)
+            break
+
+def ship_hit(ai_settings,stats, screen, ship, aliens, bullets):
+    """响应被外星人撞到的飞船"""
+    if stats.ships_left > 0:
+        # 飞船的生命值减一
+        stats.ships_left -= 1
+
+        # 清空外星人列表和子弹列表
+        aliens.empty()
+        bullets.empty()
+
+        # 创建一个新的外星人群，并且把飞船放到屏幕的底部中央
+        create_fleet(ai_settings, screen, ship, aliens)
+        ship.center_ship()
+
+        # 暂定游戏
+        sleep(0.5)
+    else:
+        stats.game_active = False
 
 def update_screen(ai_setting,screen,ship,bullets,aliens):
     """更新屏幕上的图像，并且切换到新屏幕"""
