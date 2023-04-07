@@ -9,7 +9,7 @@ import pygame,sys
 import function_13_10_function_goldtoad as fg
 from pygame.sprite import Group
 from function_12_1_setting import Settings
-from function_13_12_CC_GameStats import GameStats
+from function_13_12_cc_gamestats import GameStats
 def run_game():
     # 初始化pygame,设置以及屏幕
     pygame.init()

@@ -10,6 +10,12 @@ def check_keydown_events(event,ai_settings,screen,rocket,bullets):
     elif event.key == pygame.K_DOWN:
     # 向右移动火箭
         rocket.moving_down = True 
+    elif event.key == pygame.K_RIGHT:
+    # 向右移动火箭
+        rocket.moving_right = True 
+    elif event.key == pygame.K_LEFT:
+    # 向右移动火箭
+        rocket.moving_left = True 
     elif event.key == pygame.K_SPACE:
         fire_bullet(ai_settings,screen,rocket,bullets)
 
@@ -28,6 +34,12 @@ def check_keyup_events(event,rocket):
     elif event.key == pygame.K_DOWN:
     # 如果有键被松开且松开的键为下键则移动标记换为False
         rocket.moving_down = False
+    elif event.key == pygame.K_RIGHT:
+    # 向右移动火箭
+        rocket.moving_right = False 
+    elif event.key == pygame.K_LEFT:
+    # 向右移动火箭
+        rocket.moving_left = False 
 
 def check_events(ai_settings,screen,rocket,bullets):
     """响应按键和鼠标事件"""

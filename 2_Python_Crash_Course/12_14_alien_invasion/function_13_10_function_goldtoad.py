@@ -57,7 +57,7 @@ def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen, sta
     for copper in coppers.copy():
         if copper.check_bottom():
             coppers.remove(copper)
-            coppers_hit_bottom(stats)
+            coppers_hit_bottom(cc_settings,screen,stats,coppers,goldtoads)
             break
             # create_copper(coppers, screen)
             # print(len(coppers))
@@ -68,13 +68,17 @@ def check_copper_goldtoad_collisions(cc_settings,goldtoads, coppers, screen, sta
             # coppers编组的长度会不断累加，所以不能在for循环中创建铜钱对象，
             # 否则会出现很多个铜钱
 
-def coppers_hit_bottom(stats, ):
+def coppers_hit_bottom(cc_settings,screen,stats,coppers,goldtoads):
     # 铜钱达到屏幕的底部的处理反应
     if stats.chances > 0:
         stats.chances -= 1
+        # 初始化游戏
+        coppers.empty()
+        goldtoads.empty()
+        # 重新创建铜钱和金蟾
+        create_copper(cc_settings,coppers,screen)
+        create_goldtoad(cc_settings,screen,goldtoads)
 
-        print(stats.chances)
-        # 暂时先不初始化游戏
     else:
         stats.game_active = False
 
