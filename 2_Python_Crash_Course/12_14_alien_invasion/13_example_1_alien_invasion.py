@@ -36,6 +36,8 @@ def run_game():
  
     #开始游戏主循环
     while True:
+        gf.wirte_high_score(stats)
+
         # 监视鼠标和键盘的命令
         gf.check_events(ai_settings,screen,ship,aliens,bullets,sb,stats,play_button)
 

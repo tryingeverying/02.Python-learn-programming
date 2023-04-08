@@ -16,7 +16,12 @@ class Scoreboard():
         # 设置显示得分情况时显示的字体
         self.text_color = (30,30,30)
         self.font = pygame.font.SysFont(None,48)
+        # 绘制分数等级图像
+        self.prep_image()
 
+# 14-5 重构 ：找出执行了多项任务的函数和方法，
+# 对它们进行重构，以让代码高效而有序。
+    def prep_image(self):
         # 准备得分数据的图像
         self.prep_score()
         # 记录最高得分

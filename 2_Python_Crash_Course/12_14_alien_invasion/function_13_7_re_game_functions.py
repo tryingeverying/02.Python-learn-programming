@@ -132,6 +132,8 @@ def update_aliens(ai_settings,stats,sb,screen,ship,aliens,bullets,):
     # 监控外星人是否达到屏幕底部
     check_aliens_bottom(ai_settings,stats,sb, screen, ship, aliens, bullets)
 
+# 14-5 重构 ：找出执行了多项任务的函数和方法，
+# 对它们进行重构，以让代码高效而有序。
 def check_bullet_alien_collisions(ai_settings, screen, ship, bullets, aliens,stats,sb):
     """检测外星人和子弹的碰撞情况"""
     # 检测是否有子弹击中了外星人
@@ -152,21 +154,24 @@ def check_bullet_alien_collisions(ai_settings, screen, ship, bullets, aliens,sta
         check_high_score(stats,sb)
 
     if len(aliens) == 0:
-        bullets.empty()
-        # 上面调用了pygame.sprite.groupcollide方法，
-        # 也就意味着碰撞判定为true的子弹和外星人会被删除，
-        # 此时如果aliens的编组的字节为空也就意味着外星人的编组已经清空了，
-        # 对应的子弹的编组也要清空，以便重新按下space时出现的子弹是新的。
-        # 但是即便是没有也不会有太大的影响
+        start_new_level(ai_settings, screen,stats,sb, ship, aliens, bullets)
 
-        # 调用设置中的加速设置，提升游戏难度
-        ai_settings.increase_speed()
+def start_new_level(ai_settings, screen,stats,sb, ship, aliens, bullets):
+    bullets.empty()
+    # 上面调用了pygame.sprite.groupcollide方法，
+    # 也就意味着碰撞判定为true的子弹和外星人会被删除，
+    # 此时如果aliens的编组的字节为空也就意味着外星人的编组已经清空了，
+    # 对应的子弹的编组也要清空，以便重新按下space时出现的子弹是新的。
+    # 但是即便是没有也不会有太大的影响
 
-        # 提高等级
-        stats.level += 1
-        sb.prep_level()
+    # 调用设置中的加速设置，提升游戏难度
+    ai_settings.increase_speed()
 
-        create_fleet(ai_settings, screen, ship, aliens)
+    # 提高等级
+    stats.level += 1
+    sb.prep_level()
+
+    create_fleet(ai_settings, screen, ship, aliens)
 
 def check_aliens_bottom(ai_settings,stats,sb, screen, ship, aliens, bullets):
     """检查是否有外星人达到屏幕底部"""
@@ -231,10 +236,7 @@ def check_play_button(ai_settings,screen,ship,aliens,bullets,sb,stats,
         stats.game_active = True
 
         # 重置计分牌图像
-        sb.prep_score()
-        sb.prep_high_score()
-        sb.prep_level()
-        sb.prep_ships()
+        sb.prep_image()
 
         # 清空外星人的列表和子弹列表
         aliens.empty()
@@ -254,6 +256,15 @@ def check_high_score(stats,sb):
     if stats.score > stats.high_score:
         stats.high_score = stats.score
         sb.prep_high_score()
+
+# 14-4 历史最高分 ：每当玩家关闭并重新开始游戏《外星人入侵》时，
+# 最高分都将被重置。请修复这个问题，调用sys.exit() 前将最高分写入文件，
+# 并当在GameStats 中初始化最高分时从文件中读取它。
+def wirte_high_score(stats):
+# 将最高分写入文件
+    filename = r"2_Python_Crash_Course\12_14_alien_invasion\high_score_record.txt"
+    with open(filename,"w") as f_b:
+        f_b.write(str(stats.high_score))
 
 def update_screen(ai_setting,screen,ship,bullets,aliens,sb,stats,play_button):
     """更新屏幕上的图像，并且切换到新屏幕"""
